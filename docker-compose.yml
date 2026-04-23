@@ -11,6 +11,7 @@ services:
     volumes:
       - ./init/raw_data_init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./../data/raw:/var/lib/mysql
+      - ./../data/my.cnf:/etc/mysql/conf.d/my.cnf
     networks:
         - wwi_dwh_network
 
@@ -25,6 +26,7 @@ services:
     volumes:
       - ./init/staging_init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./../data/staging:/var/lib/mysql
+      - ./../data/my.cnf:/etc/mysql/conf.d/my.cnf
     networks:
       - wwi_dwh_network
 
@@ -39,6 +41,7 @@ services:
     volumes:
       - ./init/dwh_init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./../data/dwh:/var/lib/mysql
+      - ./../data/my.cnf:/etc/mysql/conf.d/my.cnf
     networks:
       - wwi_dwh_network
 

@@ -1,4 +1,4 @@
 CREATE SCHEMA IF NOT EXISTS wwi_dwh;
 CREATE USER IF NOT EXISTS 'etl_user'@'%' identified by 'etl_password';
-GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT  ON wwi_dwh.* TO 'etl_user'@'%';
+GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, INDEX  ON wwi_dwh.* TO 'etl_user'@'%';
 FLUSH PRIVILEGES;

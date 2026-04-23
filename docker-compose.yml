@@ -1,0 +1,47 @@
+services:
+
+  mariadb_source:
+    image: mariadb:11.2.2
+    container_name: mariadb_source
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init/raw_data_init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./../data/raw:/var/lib/mysql
+    networks:
+        - wwi_dwh_network
+
+  mariadb_staging:
+    image: mariadb:11.2.2
+    container_name: mariadb_staging
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./init/staging_init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./../data/staging:/var/lib/mysql
+    networks:
+      - wwi_dwh_network
+
+  mariadb_dwh:
+    image: mariadb:11.2.2
+    container_name: mariadb_dwh
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./init/dwh_init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./../data/dwh:/var/lib/mysql
+    networks:
+      - wwi_dwh_network
+
+networks:
+    wwi_dwh_network:
+        driver: bridge
